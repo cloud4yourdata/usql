@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>89b5de53-8444-4a93-9910-176bea999875</ProjectGuid>
+    <OutputType>File</OutputType>
+    <AssemblyName>Algebra.xml</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <Name>USQLDemos</Name>
+    <RootNamespace>USQLDemos</RootNamespace>
+    <RuntimeVersion>default</RuntimeVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Script Include="Demos_001\Demo0IISLogs.usql" />
+    <Script Include="Demos_001\Demo1Log4Net.usql" />
+    <Script Include="Demos_001\Demo2CogitiveTagger.usql" />
+    <Script Include="Demos_001\Demo3CogitiveFaces.usql" />
+    <Script Include="Demos_001\Demo4StackOverflow.usql">
+      <RecurrenceName>Demo4StackOverflow_ADLVSTool</RecurrenceName>
+      <RecurrenceId>2c24af51-5e5d-4b0f-bbdd-6525571cb2ab</RecurrenceId>
+    </Script>
+    <Script Include="Demos_001\Demo5StackOverflowTechRadar.usql" />
+    <Script Include="Demos_002\DemoColorHist_DictExtProc.usql" />
+    <Script Include="Demos_002\Demo_CrimesStats.usql" />
+    <Script Include="Demos_002\Demo_InitCrimes.usql">
+      <RecurrenceName>Demo_InitCrimes_ADLVSTool</RecurrenceName>
+      <RecurrenceId>3f41619c-d580-46ce-8592-5126eb8b203c</RecurrenceId>
+    </Script>
+    <Script Include="Demos_002\Demo_LoadCrimes.usql" />
+    <Script Include="Demos_002\Demo_UKCrimesCallLoadSP.usql">
+      <RecurrenceName>Demo_UKCrimesCallLoadSP_ADLVSTool</RecurrenceName>
+      <RecurrenceId>89114c21-2520-4dcd-895a-19f7909e3b90</RecurrenceId>
+    </Script>
+    <Script Include="Demos_002\Demo_UKCrimesLoadSP.usql">
+      <RecurrenceName>Demo_UKCrimesLoadSP_ADLVSTool</RecurrenceName>
+      <RecurrenceId>8f082819-4c1e-48ee-b213-9a376fa0249e</RecurrenceId>
+    </Script>
+    <Script Include="Demos_003\Demo_GetADLUInfo.usql" />
+    <Script Include="Demos_003\Demo_PythonIntalledModules.usql">
+      <RecurrenceName>Demo_PythonIntalledModules_ADLVSTool</RecurrenceName>
+      <RecurrenceId>5dbdf3cf-b236-4baf-aeab-dc5caca10372</RecurrenceId>
+    </Script>
+    <Script Include="Init\CreateDemosDb.usql">
+      <RecurrenceName>CreateDemosDb_ADLVSTool</RecurrenceName>
+      <RecurrenceId>f3bbcfda-4038-4e2c-a027-94913ffb401c</RecurrenceId>
+    </Script>
+    <Script Include="Init\RegisterCognitiveAssemblies.usql" />
+    <Script Include="Init\RegisterExtensions.usql" />
+    <Script Include="Samples\Arrays.usql" />
+    <Script Include="Samples\CallStoredProcedure.usql" />
+    <Script Include="Samples\CatalogViews.usql">
+      <RecurrenceName>CatalogViews_ADLVSTool</RecurrenceName>
+      <RecurrenceId>71272b10-fcf8-49d7-ba76-674c7605bd4f</RecurrenceId>
+    </Script>
+    <Script Include="Samples\ConstantRowSets.usql" />
+    <Script Include="Samples\CreatePackage.usql" />
+    <Script Include="Samples\CreateStoredProcedure.usql" />
+    <Script Include="Samples\FileSets.usql" />
+    <Script Include="Samples\ImportPackage.usql" />
+    <Script Include="Samples\Maps.usql" />
+    <Script Include="Samples\Partitions\CreatePackagePartitions.usql" />
+    <Script Include="Samples\Partitions\CreateTable.usql" />
+    <Script Include="Samples\Partitions\DropPartition.usql" />
+    <Script Include="Samples\Partitions\DynamicPartitionLoad.usql" />
+    <Script Include="Samples\Partitions\GetBadData.usql" />
+    <Script Include="Samples\Partitions\GetData.usql" />
+    <Script Include="Samples\Partitions\StaticPartitionLoad.usql" />
+    <Script Include="Samples\Partitions\TruncateTable.usql" />
+    <Script Include="Samples\Processor.usql" />
+    <Script Include="Samples\Reducer.usql" />
+    <Script Include="Samples\TableDistributionScheme.usql" />
+    <ScriptCode Include="Demos_001\Demo0IISLogs.usql.cs">
+      <DependentUpon>Demos_001\Demo0IISLogs.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_001\Demo1Log4Net.usql.cs">
+      <DependentUpon>Demos_001\Demo1Log4Net.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_001\Demo2CogitiveTagger.usql.cs">
+      <DependentUpon>Demos_001\Demo2CogitiveTagger.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_001\Demo3CogitiveFaces.usql.cs">
+      <DependentUpon>Demos_001\Demo3CogitiveFaces.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_001\Demo4StackOverflow.usql.cs">
+      <DependentUpon>Demos_001\Demo4StackOverflow.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_001\Demo5StackOverflowTechRadar.usql.cs">
+      <DependentUpon>Demos_001\Demo5StackOverflowTechRadar.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_002\DemoColorHist_DictExtProc.usql.cs">
+      <DependentUpon>Demos_002\DemoColorHist_DictExtProc.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_002\Demo_CrimesStats.usql.cs">
+      <DependentUpon>Demos_002\Demo_CrimesStats.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_002\Demo_InitCrimes.usql.cs">
+      <DependentUpon>Demos_002\Demo_InitCrimes.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_002\Demo_LoadCrimes.usql.cs">
+      <DependentUpon>Demos_002\Demo_LoadCrimes.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_002\Demo_UKCrimesCallLoadSP.usql.cs">
+      <DependentUpon>Demos_002\Demo_UKCrimesCallLoadSP.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_002\Demo_UKCrimesLoadSP.usql.cs">
+      <DependentUpon>Demos_002\Demo_UKCrimesLoadSP.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_003\Demo_GetADLUInfo.usql.cs">
+      <DependentUpon>Demos_003\Demo_GetADLUInfo.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos_003\Demo_PythonIntalledModules.usql.cs">
+      <DependentUpon>Demos_003\Demo_PythonIntalledModules.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Init\CreateDemosDb.usql.cs">
+      <DependentUpon>Init\CreateDemosDb.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Init\RegisterCognitiveAssemblies.usql.cs">
+      <DependentUpon>Init\RegisterCognitiveAssemblies.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Init\RegisterExtensions.usql.cs">
+      <DependentUpon>Init\RegisterExtensions.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Arrays.usql.cs">
+      <DependentUpon>Samples\Arrays.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\CallStoredProcedure.usql.cs">
+      <DependentUpon>Samples\CallStoredProcedure.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\CatalogViews.usql.cs">
+      <DependentUpon>Samples\CatalogViews.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\ConstantRowSets.usql.cs">
+      <DependentUpon>Samples\ConstantRowSets.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\CreatePackage.usql.cs">
+      <DependentUpon>Samples\CreatePackage.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\CreateStoredProcedure.usql.cs">
+      <DependentUpon>Samples\CreateStoredProcedure.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\FileSets.usql.cs">
+      <DependentUpon>Samples\FileSets.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\ImportPackage.usql.cs">
+      <DependentUpon>Samples\ImportPackage.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Maps.usql.cs">
+      <DependentUpon>Samples\Maps.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Partitions\CreatePackagePartitions.usql.cs">
+      <DependentUpon>Samples\Partitions\CreatePackagePartitions.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Partitions\CreateTable.usql.cs">
+      <DependentUpon>Samples\Partitions\CreateTable.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Partitions\DropPartition.usql.cs">
+      <DependentUpon>Samples\Partitions\DropPartition.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Partitions\DynamicPartitionLoad.usql.cs">
+      <DependentUpon>Samples\Partitions\DynamicPartitionLoad.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Partitions\GetBadData.usql.cs">
+      <DependentUpon>Samples\Partitions\GetBadData.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Partitions\GetData.usql.cs">
+      <DependentUpon>Samples\Partitions\GetData.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Partitions\StaticPartitionLoad.usql.cs">
+      <DependentUpon>Samples\Partitions\StaticPartitionLoad.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Partitions\TruncateTable.usql.cs">
+      <DependentUpon>Samples\Partitions\TruncateTable.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Processor.usql.cs">
+      <DependentUpon>Samples\Processor.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Reducer.usql.cs">
+      <DependentUpon>Samples\Reducer.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\TableDistributionScheme.usql.cs">
+      <DependentUpon>Samples\TableDistributionScheme.usql</DependentUpon>
+    </ScriptCode>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Init" />
+    <Folder Include="Demos_001" />
+    <Folder Include="Demos_002" />
+    <Folder Include="Demos_003" />
+    <Folder Include="Samples" />
+    <Folder Include="Samples\Partitions" />
+  </ItemGroup>
+  <Import Project="$(AppData)\Microsoft\DataLake\MsBuild\1.0\Usql.targets" />
+</Project>

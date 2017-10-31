@@ -1,0 +1,9 @@
+﻿DECLARE @startDate DateTime = new DateTime(2017, 01, 01, 05, 00, 00);
+DECLARE @endDate DateTime = new DateTime(2017, 01, 01, 07, 00, 00);
+DECLARE @outputName string = "sp_result.csv";
+DemoDb.dm.SampleSP
+(
+    @startDate,
+    @endDate,
+    @outputName
+);

@@ -1,0 +1,7 @@
+﻿DECLARE @AssemblyPath string = @"D:\Repos\Cloud4YourData\USQL\ADLAExt\bin\Debug\";
+//DECLARE @AssemblyPath string = @"Assemblies/";
+
+DECLARE @AssemblyExt string = @AssemblyPath+"ADLAExt.dll";
+USE DemoDb;
+DROP ASSEMBLY IF EXISTS ADLAExt;
+CREATE ASSEMBLY ADLAExt FROM @AssemblyExt;

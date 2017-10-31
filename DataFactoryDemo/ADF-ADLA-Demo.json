@@ -1,0 +1,77 @@
+{
+  "name": "ADF-ADLA-Demo",
+  "properties": {
+    "description": "U-SQL",
+    "activities": [
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "BlobSource",
+            "recursive": true
+          },
+          "sink": {
+            "type": "AzureDataLakeStoreSink",
+            "copyBehavior": "PreserveHierarchy",
+            "writeBatchSize": 0,
+            "writeBatchTimeout": "00:00:00"
+          }
+        },
+        "inputs": [
+          {
+            "name": "UKCrimes-Input"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "UKCrimes-Output"
+          }
+        ],
+        "policy": {
+          "timeout": "1.00:00:00",
+          "concurrency": 1,
+          "executionPriorityOrder": "NewestFirst",
+          "style": "StartOfInterval",
+          "retry": 3,
+          "longRetry": 0,
+          "longRetryInterval": "00:00:00"
+        },
+        "scheduler": {
+          "frequency": "Day",
+          "interval": 1
+        },
+        "name": "Copy UKCrimes from Blob Storage To ADLS"
+      },
+      {
+        "name": "Load UKCrimes To ADLA DemoDb",
+        "type": "DataLakeAnalyticsU-SQL",
+        "typeProperties": {
+          "degreeOfParallelism": 5,
+          "script": "DemoDb.cr.LoadCrimes(System.DateTime.Parse(@DateSliceStart), System.DateTime.Parse(@DateSliceEnd));",
+          "parameters": {
+            "DateSliceStart": "$$Text.Format('{0:yyyy-MM-ddTHH:mm:ssZ}', SliceStart)",
+            "DateSliceEnd": "$$Text.Format('{0:yyyy-MM-ddTHH:mm:ssZ}', SliceEnd)"
+          }
+
+        },
+        "inputs": [
+          {
+            "name": "UKCrimes-Output"
+          }
+        ],
+        "outputs": [ { "name": "UKCrimesAgg" } ],
+
+        "scheduler": {
+          "frequency": "Day",
+          "interval": 1
+        },
+        "linkedServiceName": "ADLAUSQL"
+      }
+    ],
+    "start": "2017-10-23T08:47:00Z",
+    "end": "2017-11-05T23:00:00Z",
+    "isPaused": false,
+    "pipelineMode": "Scheduled"
+  },
+  "$schema": "http://datafactories.schema.management.azure.com/schemas/2015-09-01/Microsoft.DataFactory.Pipeline.json"
+}

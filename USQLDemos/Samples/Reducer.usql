@@ -1,0 +1,67 @@
+﻿USE DATABASE [DemoDb];
+REFERENCE ASSEMBLY [ADLAExt];
+
+USING SaidiRangeReducer = ADLAExt.Reducers.SaidiRangeReducer;
+
+@sample =
+    SELECT *
+    FROM(
+        VALUES
+        (
+            1,
+            new DateTime(2017, 01, 01, 05, 00, 00),
+            new DateTime(2017, 01, 01, 06, 00, 00),
+            100.00
+        ),
+        (
+            1,
+            new DateTime(2017, 01, 01, 06, 01, 00),
+            new DateTime(2017, 01, 01, 07, 00, 00),
+            200.00
+        ),
+        (
+            1,
+            new DateTime(2017, 01, 01, 08, 00, 00),
+            new DateTime(2017, 01, 01, 09, 00, 00),
+            900.00
+        ),
+
+        (
+            2,
+            new DateTime(2017, 01, 01, 05, 00, 00),
+            new DateTime(2017, 01, 01, 06, 00, 00),
+            1.00
+        ),
+        (
+            2,
+            new DateTime(2017, 01, 01, 06, 01, 00),
+            new DateTime(2017, 01, 01, 07, 00, 00),
+            2.00
+        ),
+        (
+            2,
+            new DateTime(2017, 01, 01, 07, 01, 00),
+            new DateTime(2017, 01, 01, 09, 00, 00),
+            9.00
+        )
+      
+        ) AS T (id, begin, end, saidi);
+
+
+@results =
+    REDUCE @sample
+    PRESORT begin
+    ON id
+    PRODUCE id int,
+            begin DateTime,
+            end DateTime,
+            saidi double
+    READONLY id
+    REQUIRED begin,
+             end,
+             saidi
+    USING new SaidiRangeReducer(180);
+
+OUTPUT @results
+TO "results.csv"
+USING Outputters.Csv();

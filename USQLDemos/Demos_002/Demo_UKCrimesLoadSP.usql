@@ -1,0 +1,69 @@
+﻿DROP PROCEDURE IF EXISTS DemoDb.cr.LoadCrimes;
+CREATE PROCEDURE DemoDb.cr.LoadCrimes(@startDate DateTime, @endDate DateTime)
+BEGIN
+    DECLARE @inputPostCodes string = @"mySamples/UKCrimes/ukpostcodes.csv";
+    DECLARE @input10topCities string = @"mySamples/UKCrimes/uk10cities.csv";
+    DECLARE @inputCrimes string = @"mySamples/UKCrimes/{Date:yyyy}-{Date:MM}/{Input}-{City}-street.csv";
+    //Max Distance in Meters
+    DECLARE CONST @maxDistance double = 15000;
+    //DB Context
+    USE DATABASE DemoDb;
+    //Asseblies registered in DB
+    REFERENCE ASSEMBLY ADLAExt;
+    USING Gps = ADLAExt.Utils.Gps;
+    USING TypeConverter = ADLAExt.Utils.TypeConverter;
+    @crimes =
+        EXTRACT CrimeID string,
+                Month string,
+                ReportedBy string,
+                FallsWithin string,
+                Longitude string,
+                Latitude string,
+                Location string,
+                LSOACode string,
+                LSOAName string,
+                CrimeType string,
+                LastOutcomeCategory string,
+                Context string,
+                Date DateTime,
+                Input string,
+                City string
+        FROM @inputCrimes
+        USING Extractors.Csv(silent : false, skipFirstNRows : 1);
+
+
+    @cities =
+        SELECT DISTINCT City
+        FROM @crimes;
+
+    @crimesTypes =
+        SELECT DISTINCT CrimeType
+        FROM @crimes;
+
+    @crimesStats =
+        SELECT City,
+               CrimeType,
+               COUNT( * )
+AS TotalCrimes
+        FROM @crimes
+        GROUP BY City,
+                 CrimeType;
+
+
+    OUTPUT @crimesTypes
+    TO "mySamples/UKCrimes/Results/crimesTypes.csv"
+    ORDER BY CrimeType
+    USING Outputters.Csv();
+
+    OUTPUT @cities
+    TO "mySamples/UKCrimes/Results/cities.csv"
+    ORDER BY City
+    USING Outputters.Csv();
+
+    OUTPUT @crimesStats
+    TO "mySamples/UKCrimes/Results/CitiesCrimes.csv"
+    ORDER BY CrimeType,
+             City,
+             TotalCrimes DESC
+    USING Outputters.Csv();
+    END;

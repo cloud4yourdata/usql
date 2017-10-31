@@ -1,0 +1,31 @@
+﻿DECLARE @logsInput string = @"D:\AppData\BIGDATA\Log4Net\{FileName}";
+USE DATABASE DemoDb;
+REFERENCE ASSEMBLY ADLAExt;
+USING Log4NetExtractor = ADLAExt.Extractors.Log4NetExtractor;
+
+@logs =
+    EXTRACT Level string,
+            Date DateTime?,
+            ThreadId int?,
+            Message string,
+            FileName string
+    FROM @logsInput
+    USING new Log4NetExtractor();
+
+@ds =
+    SELECT *
+    FROM @logs
+    WHERE Level == "ERROR" AND Message.Contains("NHibernate.TransactionException");
+
+OUTPUT @ds
+TO "Results.csv"
+ORDER BY Date DESC
+USING Outputters.Tsv();
+
+@stats =
+    SELECT COUNT(DISTINCT FileName) AS TotalProcessedFiles
+    FROM @logs;
+
+OUTPUT @stats
+TO "stats.txt"
+USING Outputters.Csv();

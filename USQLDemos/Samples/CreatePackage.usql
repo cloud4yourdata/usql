@@ -1,0 +1,12 @@
+﻿DROP PACKAGE IF EXISTS DemoDb.dm.LoadMyAssemblies;
+CREATE PACKAGE DemoDb.dm.LoadMyAssemblies(@all string = "yes")
+BEGIN 
+ IF @all == "yes" THEN
+    EXPORT SYSTEM ASSEMBLY [System.Xml]; 
+    EXPORT ASSEMBLY [ADLAExt];
+    EXPORT @listOfAssemblies ="System.Xml;ADLAExt";
+ ELSE
+    EXPORT ASSEMBLY [ADLAExt];
+    EXPORT @listOfAssemblies ="ADLAExt";
+ END;
+END;

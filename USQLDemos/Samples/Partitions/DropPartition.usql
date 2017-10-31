@@ -1,0 +1,3 @@
+﻿IMPORT PACKAGE DemoDb.dm.MyPartitionsDemo AS mypart;
+ALTER TABLE DemoDb.dm.Orders
+DROP IF EXISTS PARTITION(mypart.@partition1);

@@ -1,0 +1,26 @@
+﻿USE DemoDb;
+@sample =
+    SELECT *
+    FROM(
+        VALUES
+        (
+            "ABC"
+        ),
+        (
+            "DEF"
+        ),
+        (
+            "GHI"
+        )
+                        ) AS T(name);
+
+CREATE TABLE IF NOT EXISTS dm.DistSchema
+(
+    INDEX clx_DistSchema
+    CLUSTERED(name ASC)
+    DISTRIBUTED BY
+    ROUND ROBIN
+    INTO 4
+) AS
+SELECT name
+FROM @sample;

@@ -1,0 +1,15 @@
+﻿IMPORT PACKAGE DemoDb.dm.LoadMyAssemblies("no") AS mypackage;
+USING SaidiRangeReducer = ADLAExt.Reducers.SaidiRangeReducer;
+
+@results =
+    SELECT *
+    FROM(
+        VALUES
+        (
+            mypackage.@listOfAssemblies
+        )
+        ) AS T(assemblies);
+
+OUTPUT @results
+TO "package.csv"
+USING Outputters.Csv();

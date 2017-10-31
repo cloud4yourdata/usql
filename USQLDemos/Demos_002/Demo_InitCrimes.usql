@@ -1,0 +1,74 @@
+﻿//Crimes
+USE DATABASE DemoDb;
+CREATE SCHEMA IF NOT EXISTS cr;
+CREATE TABLE IF NOT EXISTS cr.TopCities
+(
+    Name string,
+    Population int,
+    Latitude double,
+    Longitude double,
+    INDEX idx_TopCities
+    CLUSTERED (Name)
+    DISTRIBUTED BY HASH (Name)
+);
+
+CREATE TABLE IF NOT EXISTS cr.CityCrimes
+(
+    Name string,
+    Year int,
+    Month int,
+    CrimeType string,
+    INDEX idx_CityCrimes
+    CLUSTERED (Name,Year,Month,CrimeType)
+    DISTRIBUTED BY HASH (Name,Year,Month,CrimeType)
+);
+CREATE FUNCTION IF NOT EXISTS cr.tvf_Crimes(@input string)
+RETURNS @result TABLE(CrimeID string,
+            Month string,
+            ReportedBy string,
+            FallsWithin string,
+            Longitude string,
+            Latitude string,
+            Location string,
+            LSOACode string,
+            LSOAName string,
+            CrimeType string,
+            LastOutcomeCategory string,
+            Context string,
+            Date DateTime,
+            Input string)
+AS
+BEGIN
+    @crimes =
+    EXTRACT CrimeID string,
+            Month string,
+            ReportedBy string,
+            FallsWithin string,
+            Longitude string,
+            Latitude string,
+            Location string,
+            LSOACode string,
+            LSOAName string,
+            CrimeType string,
+            LastOutcomeCategory string,
+            Context string,
+            Date DateTime,
+            Input string
+    FROM @input
+    USING Extractors.Csv(silent : false,skipFirstNRows:1);
+    
+    @result = SELECT CrimeID,
+            Month,
+            ReportedBy,
+            FallsWithin,
+            Longitude,
+            Latitude,
+            Location,
+            LSOACode,
+            LSOAName,
+            CrimeType,
+            LastOutcomeCategory,
+            Context,
+            Date,
+            Input FROM @crimes;
+    END;

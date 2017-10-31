@@ -1,0 +1,28 @@
+﻿@constantRS =
+    SELECT *
+    FROM(
+        VALUES
+        (
+            1,
+            "Project1",
+            DateTime.Parse("2017-01-01"),
+            DateTime.Parse("2017-12-31")
+        ),
+        (
+            2,
+            "Project2",
+            DateTime.Parse("2017-01-01"),
+            DateTime.Parse("2017-06-30")
+        ),
+        (
+            3,
+            "Project3",
+            DateTime.Parse("2017-06-30"),
+            DateTime.Parse("2017-12-31")
+        )
+                        )
+                       AS T(projectId,projectName, startDate,endDate);
+
+OUTPUT @constantRS
+TO "constantRS.csv"
+USING Outputters.Csv();

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>848cb757-00c0-4b55-b68d-a280941c8185</ProjectGuid>
+    <OutputType>File</OutputType>
+    <AssemblyName>DataFactory</AssemblyName>
+    <ApiVersion>2015-09-01</ApiVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <Name>DataFactoryDemo</Name>
+    <RootNamespace>DataFactoryDemo</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ADFConfigFileToPublish>
+    </ADFConfigFileToPublish>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Dependencies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Script Include="ADF-ADLA-Demo.json" />
+    <Script Include="AdlaBlobStorage.json" />
+    <Script Include="AdlaUSQL.json" />
+    <Script Include="AdlStoreLab.json" />
+    <Script Include="UKCrimes-Input.json" />
+    <Script Include="UKCrimes-Output.json" />
+    <Script Include="UKCrimesAgg.json" />
+  </ItemGroup>
+  <Import Project="$(AppData)\Microsoft\DataFactory Tools for Visual Studio\MsBuild\1.0\DataFactory.targets" />
+</Project>

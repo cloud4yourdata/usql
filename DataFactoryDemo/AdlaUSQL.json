@@ -1,0 +1,16 @@
+﻿{
+  "$schema": "http://datafactories.schema.management.azure.com/schemas/2015-09-01/Microsoft.DataFactory.LinkedService.json",
+  "name": "ADLAUSQL",
+  "properties": {
+    "type": "AzureDataLakeAnalytics",
+    "typeProperties": {
+      "accountName": "datalakelab",
+      "dataLakeAnalyticsUri": "azuredatalakeanalytics.net",
+      "servicePrincipalId": "d77b42e2-b203-45a0-9b2e-05fdf3acd752",
+      "tenant": "925460c6-df85-4de8-ab11-38b0891a7dff",
+      "subscriptionId": "edca0128-b654-4dc9-b281-3317b1ca943e",
+      "resourceGroupName": "adla",
+      "servicePrincipalKey": "**********"
+    }
+  }
+}

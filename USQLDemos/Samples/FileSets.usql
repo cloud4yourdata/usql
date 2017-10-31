@@ -1,0 +1,15 @@
+﻿DECLARE @BaseDir string = @"d:\AppData\BIGDATA\FileSets\";
+DECLARE @inputs = @BaseDir + @"{Date:yyyy}\{Date:MM}\{Date:dd}\assignments{Index}.csv";
+
+
+@usersprojects =
+    EXTRACT user string,
+            projects string,
+            Date DateTime,
+            Index string
+    FROM @inputs
+    USING Extractors.Csv(skipFirstNRows : 1, quoting : true);
+
+OUTPUT @usersprojects
+TO "FileSets.csv"
+USING Outputters.Csv();

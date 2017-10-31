@@ -1,0 +1,15 @@
+﻿USE DATABASE DemoDb;
+REFERENCE ASSEMBLY ADLAExt;
+USING adlinfo = ADLAExt.Utils.VertextInfo;
+@ds =
+    SELECT adlinfo.GetInfo() AS BasicInfo, adlinfo.GetFullInfo() AS FullInfo,  adlinfo.GetVMInfo()  AS VMInfo
+    FROM(
+        VALUES
+        (
+            "Info"
+        ))
+AS T(Info);
+
+OUTPUT @ds
+TO "adluinfo.cvs"
+USING Outputters.Csv();
