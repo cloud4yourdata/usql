@@ -12,47 +12,64 @@ DECLARE @input string = @"D:\AppData\BIGDATA\Images\{FileName}";
     USING new Cognition.Vision.ImageExtractor();
 
 ////// Estimate age and gender for human faces
-@rawFaces = 
-        PROCESS @imgs
-        PRODUCE FileName,
-                NumFaces int,
-                FaceAge string,
-                FaceGender string
-        READONLY FileName
-        USING new Cognition.Vision.FaceDetector();
-@faces =
-    SELECT FileName,
-           new SQL.ARRAY<string>(ADLAExt.Utils.ArraysUtils.MergeByPosition(FaceAge, FaceGender, ";")) AS Info
-    FROM @rawFaces;
+//@rawFaces = 
+//        PROCESS @imgs
+//        PRODUCE FileName,
+//                NumFaces int,
+//                FaceAge string,
+//                FaceGender string
+//        READONLY FileName
+//        USING new Cognition.Vision.FaceDetector();
+//@faces =
+//    SELECT FileName,
+//           new SQL.ARRAY<string>(ADLAExt.Utils.ArraysUtils.MergeByPosition(FaceAge, FaceGender, ";")) AS Info
+//    FROM @rawFaces;
+//
+//@faceObjs =
+//    SELECT f.FileName,
+//           I.pi
+//    FROM @faces AS f
+//         CROSS APPLY
+//             EXPLODE(f.Info) AS I(pi);
+//
+//@faceObjs =
+//    SELECT FileName,
+//           new SQL.ARRAY<string>(pi.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)) AS Pi
+//    FROM @faceObjs;
+//
+//@faceObjs =
+//    SELECT FileName,
+//           Byte.Parse(Pi[0]) AS Age,
+//           Pi[1] AS Gender
+//    FROM @faceObjs;
 
-@faceObjs =
-    SELECT f.FileName,
-           I.pi
-    FROM @faces AS f
-         CROSS APPLY
-             EXPLODE(f.Info) AS I(pi);
 
-@faceObjs =
+@faceObjs = 
     SELECT FileName,
-           new SQL.ARRAY<string>(pi.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)) AS Pi
-    FROM @faceObjs;
-
-@faceObjs =
-    SELECT FileName,
-           Byte.Parse(Pi[0]) AS Age,
-           Pi[1] AS Gender
-    FROM @faceObjs;
+        Details.NumFaces,
+        Details.FaceIndex,
+        Details.RectX, Details.RectY, Details.Width, Details.Height,
+        Details.FaceAge,
+        Details.FaceGender
+    FROM @imgs
+    CROSS APPLY
+        new Cognition.Vision.FaceDetectionApplier() AS Details(
+            NumFaces int, 
+            FaceIndex int, 
+            RectX float, RectY float, Width float, Height float, 
+            FaceAge int, 
+            FaceGender string);
 
 //
 @kids =
     SELECT DISTINCT FileName
     FROM @faceObjs
-    WHERE Age < 7 AND Gender == "Female";
+    WHERE FaceAge < 7 AND FaceGender == "Female";
 
 OUTPUT @kids
 TO @"/my/cognition/output/kids.csv"
 USING Outputters.Csv();
 
-OUTPUT @rawFaces
+OUTPUT @faceObjs
 TO @"/my/cognition/output/rawFaces.csv"
 USING Outputters.Csv();
