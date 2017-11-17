@@ -20,17 +20,6 @@ DECLARE @input string = @"D:\AppData\BIGDATA\Images\{FileName}";
     READONLY FileName
     USING new Cognition.Vision.ImageTagger();
 
-////// Split tags - convert tag1;tag2;tag3 to ARRAY[] {"tag1",tag2",tag3"}
-//@objects =
-//    SELECT FileName,
-//           new SQL.ARRAY<string>(Tags.Split(new char[]{';'}, StringSplitOptions.RemoveEmptyEntries)) AS ObjTags
-//    FROM @objects;
-
-//// Transform to table:
-///  FileName tag1
-///  FileName tag2
-///  FileName tag3
-
 @objects =
     SELECT o.FileName,
            t.Tag,
@@ -38,6 +27,7 @@ DECLARE @input string = @"D:\AppData\BIGDATA\Images\{FileName}";
     FROM @objects AS o
          CROSS APPLY
              EXPLODE(o.Tags) AS t(Tag,Rank);
+
 //// Find files with car
 @carObjects =
     SELECT DISTINCT FileName
